@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 const Step3Deadline = ({ formData, handleChange, nextStep, prevStep }) => {
   const [suggestedDate, setSuggestedDate] = useState('');
 
-  // Utility: Add 7 working days (skips weekends)
   const getNextWorkingDate = (daysToAdd) => {
     let date = new Date();
     let added = 0;
@@ -16,7 +15,7 @@ const Step3Deadline = ({ formData, handleChange, nextStep, prevStep }) => {
       }
     }
 
-    return date.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+    return date.toISOString().split('T')[0];
   };
 
   useEffect(() => {
@@ -25,31 +24,53 @@ const Step3Deadline = ({ formData, handleChange, nextStep, prevStep }) => {
   }, []);
 
   return (
-    <div style={{ maxWidth: '600px', margin: '0 auto' }}>
-      <h2>Step 3: Deadline Request</h2>
+    <div className="bg-white shadow-sm rounded-xl p-6 max-w-2xl mx-auto space-y-6">
+      <h2 className="text-2xl font-semibold text-gray-800">Step 3: Set a Deadline</h2>
 
-      <p>
-        We recommend setting a deadline at least <strong>7 working days</strong> from today.
+      <p className="text-sm text-gray-600">
+        Based on the creative team’s availability, we recommend selecting a delivery date at least <strong>7 working days</strong> from today.
       </p>
 
-      <label>Suggested Delivery Date:</label>
-      <input type="text" value={suggestedDate} readOnly />
+      <div className="space-y-4">
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Suggested Delivery Date</label>
+          <input
+            type="text"
+            value={suggestedDate}
+            readOnly
+            className="w-full bg-gray-100 border border-gray-300 rounded-md p-2 text-gray-500 cursor-not-allowed"
+          />
+        </div>
 
-      <label>Would you like to request a custom deadline? (Optional)</label>
-      <input
-        type="date"
-        id="preferredDeadline"
-        value={formData.preferredDeadline || ''}
-        onChange={handleChange}
-      />
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Request a Custom Deadline (Optional)</label>
+          <input
+            type="date"
+            id="preferredDeadline"
+            value={formData.preferredDeadline || ''}
+            onChange={handleChange}
+            className="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-indigo-500"
+          />
+        </div>
 
-      <p style={{ fontSize: '0.9em', color: 'gray' }}>
-        Custom dates are subject to approval by the admin or creative team.
-      </p>
+        <p className="text-xs text-gray-500 italic">
+          If your requested date is too early, the creative team will notify you with an adjusted schedule.
+        </p>
+      </div>
 
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
-        <button onClick={prevStep}>⬅ Back</button>
-        <button onClick={nextStep}>Next ➡️</button>
+      <div className="pt-4 flex justify-between">
+        <button
+          onClick={prevStep}
+          className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300"
+        >
+          ⬅ Back
+        </button>
+        <button
+          onClick={nextStep}
+          className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-500"
+        >
+          Next ➡️
+        </button>
       </div>
     </div>
   );

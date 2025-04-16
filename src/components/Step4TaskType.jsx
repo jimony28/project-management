@@ -1,66 +1,54 @@
 import React from 'react';
+const taskOptions = [
+  'Logo Design',
+  'Poster Design',
+  'Intro Video',
+  'Other',
+];
 
 const Step4TaskType = ({ formData, handleChange, nextStep, prevStep }) => {
   return (
-    <div style={{ maxWidth: '600px', margin: '0 auto' }}>
-      <h2>Step 4: What do you need help with?</h2>
+    <div className="bg-white shadow-sm rounded-xl p-6 max-w-2xl mx-auto space-y-6">
+      <h2 className="text-2xl font-semibold text-gray-800">Step 4: What Do You Need Help With?</h2>
 
-      <p>Select the type of creative work you’re requesting:</p>
-
-      <div>
-        <label>
-          <input
-            type="radio"
-            name="taskType"
-            value="Logo Design"
-            checked={formData.taskType === 'Logo Design'}
-            onChange={handleChange}
-            id="taskType"
-          />
-          Logo Design
-        </label><br />
-
-        <label>
-          <input
-            type="radio"
-            name="taskType"
-            value="Poster Design"
-            checked={formData.taskType === 'Poster Design'}
-            onChange={handleChange}
-            id="taskType"
-          />
-          Poster Design
-        </label><br />
-
-        <label>
-          <input
-            type="radio"
-            name="taskType"
-            value="Intro Video"
-            checked={formData.taskType === 'Intro Video'}
-            onChange={handleChange}
-            id="taskType"
-          />
-          Intro Video
-        </label><br />
-
-        <label>
-          <input
-            type="radio"
-            name="taskType"
-            value="Other"
-            checked={formData.taskType === 'Other'}
-            onChange={handleChange}
-            id="taskType"
-          />
-          Other
-        </label>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {taskOptions.map((task) => (
+          <label
+            key={task}
+            className={`border rounded-lg p-4 cursor-pointer transition 
+              ${
+                formData.taskType === task
+                  ? 'border-indigo-600 bg-indigo-50 text-indigo-800 font-semibold'
+                  : 'border-gray-300 text-gray-700 hover:border-gray-400'
+              }`}
+          >
+            <input
+              type="radio"
+              name="taskType"
+              id="taskType"
+              value={task}
+              checked={formData.taskType === task}
+              onChange={handleChange}
+              className="hidden"
+            />
+            {task}
+          </label>
+        ))}
       </div>
 
-      <br />
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <button onClick={prevStep}>⬅ Back</button>
-        <button onClick={nextStep}>Next ➡️</button>
+      <div className="pt-6 flex justify-between">
+        <button
+          onClick={prevStep}
+          className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300"
+        >
+          ⬅ Back
+        </button>
+        <button
+          onClick={nextStep}
+          className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-500"
+        >
+          Next ➡️
+        </button>
       </div>
     </div>
   );

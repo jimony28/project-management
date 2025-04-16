@@ -6,6 +6,7 @@ import Step4TaskType from './Step4TaskType';
 import Step5Uploads from './Step5Uploads';
 import Step6Notes from './Step6Notes';
 import Step7Review from './Step7Review';
+import ProgressBar from './ProgressBar';
 
 const TaskForm = () => {
   const [step, setStep] = useState(1);
@@ -20,11 +21,8 @@ const TaskForm = () => {
     taskType: '',
     briefFile: null,
     referenceFiles: [],
-    notes: ''
+    notes: '',
   });
-
-  const nextStep = () => setStep(prev => prev + 1);
-  const prevStep = () => setStep(prev => prev - 1);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -33,7 +31,6 @@ const TaskForm = () => {
 
   const handleFileChange = (e) => {
     const { id, files } = e.target;
-  
     if (id === 'briefFile') {
       setFormData({ ...formData, briefFile: files[0] });
     } else if (id === 'referenceFiles') {
@@ -41,76 +38,75 @@ const TaskForm = () => {
     }
   };
 
-  switch (step) {
-    case 1:
-      return (
+  const nextStep = () => setStep((prev) => Math.min(prev + 1, 7));
+  const prevStep = () => setStep((prev) => Math.max(prev - 1, 1));
+
+  return (
+    <div className="max-w-3xl mx-auto px-4 py-10">
+      <h1 className="text-2xl font-bold text-center mb-6">Youth Studios MVP</h1>
+      <ProgressBar step={step} />
+
+      {step === 1 && (
         <Step1BasicInfo
           formData={formData}
           handleChange={handleChange}
           nextStep={nextStep}
         />
-      );
-    default:
-      return <div>✅ Form Completed (or Step {step} not created yet)</div>;
-    
-      case 2:
-        return (
-          <Step2ProjectInfo
-            formData={formData}
-            handleChange={handleChange}
-            nextStep={nextStep}
-            prevStep={prevStep}
-          />
-        );
-    
-      case 3:
-        return (
-         <Step3Deadline
+      )}
+
+      {step === 2 && (
+        <Step2ProjectInfo
           formData={formData}
           handleChange={handleChange}
           nextStep={nextStep}
           prevStep={prevStep}
-          />
-        );
+        />
+      )}
 
-       case 4:
-        return (
-          <Step4TaskType
-           formData={formData}
-           handleChange={handleChange}
-           nextStep={nextStep}
-           prevStep={prevStep}
-           />
-     );
-       case 5:
-        return (
-          <Step5Uploads
+      {step === 3 && (
+        <Step3Deadline
+          formData={formData}
+          handleChange={handleChange}
+          nextStep={nextStep}
+          prevStep={prevStep}
+        />
+      )}
+
+      {step === 4 && (
+        <Step4TaskType
+          formData={formData}
+          handleChange={handleChange}
+          nextStep={nextStep}
+          prevStep={prevStep}
+        />
+      )}
+
+      {step === 5 && (
+        <Step5Uploads
           formData={formData}
           handleFileChange={handleFileChange}
           nextStep={nextStep}
           prevStep={prevStep}
-          />
-     );
-         case 6:
-          return (
-             <Step6Notes
-             formData={formData}
-             handleChange={handleChange}
-             nextStep={nextStep}
-             prevStep={prevStep}
-             />
-      );
+        />
+      )}
 
-        case 7:
-          return (
-             <Step7Review
-             formData={formData}
-             handleChange={handleChange}
-             nextStep={nextStep}
-             prevStep={prevStep}
-             />
-      );
-  }
+      {step === 6 && (
+        <Step6Notes
+          formData={formData}
+          handleChange={handleChange}
+          nextStep={nextStep}
+          prevStep={prevStep}
+        />
+      )}
+
+      {step === 7 && (
+        <Step7Review
+          formData={formData}
+          prevStep={prevStep}
+        />
+      )}
+    </div>
+  );
 };
 
 export default TaskForm;
