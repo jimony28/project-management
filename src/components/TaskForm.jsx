@@ -12,6 +12,14 @@ import ProgressBar from './ProgressBar';
 
 import Login from '../pages/Login';
 import Dashboard from '../pages/Dashboard';
+import NewProject from '../pages/NewProject';
+import { Link } from 'react-router-dom';
+import ProjectDetails from '../pages/ProjectDetails';
+import NewTask from '../pages/NewTask';
+
+<Link to="/new-project" className="block py-2 px-4 hover:bg-gray-200 rounded">
+  ➕ New Project
+</Link>
 
 const TaskForm = () => {
   const [step, setStep] = useState(1);
@@ -120,6 +128,9 @@ const TaskForm = () => {
         />
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/new-project" element={<NewProject />} />
+        <Route path="/project/:id" element={<ProjectDetails />} />
+        <Route path="/project/:id/new-task" element={<NewTask />} />
       </Routes>
     </Router>
   );
