@@ -1,11 +1,15 @@
-import TaskForm from './components/TaskForm';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Dashboard from './pages/Dashboard';
+import ClientDashboard from './components/ClientDashboard';
 
 function App() {
   return (
-    <div style={{ padding: '2rem' }}>
-      <h1>Youth Studios MVP</h1>
-      <TaskForm />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/client" element={<ClientDashboard />} />
+      </Routes>
+    </Router>
   );
 }
 

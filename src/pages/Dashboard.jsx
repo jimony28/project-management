@@ -1,3 +1,4 @@
+import ClientDashboard from '../components/ClientDashboard';
 import TopNav from '../components/TopNav';
 import Sidebar from '../components/Sidebar';
 import ProgressBar from '../components/ProgressBar';
@@ -25,7 +26,7 @@ const Dashboard = () => {
 
           <section className="mb-8">
             <ProgressBar step={project.completed/project.total * 100} label={`${project.completed} of ${project.total} tasks`} />
-            <StatsSummary hours={project.hours} cost={project.cost} />
+            <StatsSummary hours={project.hours} />
           </section>
 
           <section>
