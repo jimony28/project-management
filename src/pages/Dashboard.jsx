@@ -1,33 +1,37 @@
-import ProjectCard from '../components/ProjectCard';
+import TopNav from '../components/TopNav';
+import Sidebar from '../components/Sidebar';
+import ProgressBar from '../components/ProgressBar';
+import StatsSummary from '../components/StatsSummary';
+import TaskTable from '../components/TaskTable';
+import TaskModal from '../components/TaskModal';
+import { BellIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 
 const Dashboard = () => {
-  const projects = [
-    {
-      id: 1,
-      name: 'Community Clean Up',
-      createdAt: 'April 20, 2025',
-      taskCount: 0,
-      status: 'Active',
-    },
-    {
-      id: 2,
-      name: 'Youth Wellness Campaign',
-      createdAt: 'April 15, 2025',
-      taskCount: 2,
-      status: 'Active',
-    }
-  ];
+  // TODO: fetch these from API/firestore
+  const clientName = 'Acme Corp';
+  const project = { id:1, name:'Website Redesign', completed:6, total:10, hours:30, cost:15000 };
+  const tasks = [ /* ...task list... */ ];
 
   return (
-    <div className="min-h-screen bg-gray-50 py-10 px-6">
-      <div className="max-w-5xl mx-auto">
-        <h1 className="text-3xl font-bold text-gray-800 mb-6">🎯 My Projects</h1>
+    <div className="flex h-screen bg-gray-50">
+      <Sidebar />
+      <div className="flex-1 flex flex-col">
+        <TopNav />
+        <main className="p-6 overflow-auto">
+          <header className="mb-6">
+            <h2 className="text-2xl font-semibold">{clientName}</h2>
+            <div className="text-gray-600">{project.name}</div>
+          </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {projects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
-          ))}
-        </div>
+          <section className="mb-8">
+            <ProgressBar step={project.completed/project.total * 100} label={`${project.completed} of ${project.total} tasks`} />
+            <StatsSummary hours={project.hours} cost={project.cost} />
+          </section>
+
+          <section>
+            <TaskTable tasks={tasks} hourlyRate={project.cost/project.hours} />
+          </section>
+        </main>
       </div>
     </div>
   );
